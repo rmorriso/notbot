@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/ant0ine/go-json-rest/rest"
@@ -12,7 +14,14 @@ type Gitlab struct {
 	URL           string
 }
 
-func GitlabHandle(w rest.ResponseWriter, req *rest.Request) {
+func PostGitlab(w rest.ResponseWriter, req *rest.Request) {
+	content, err := ioutil.ReadAll(req.Body)
+	req.Body.Close()
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	fmt.Println(string(content))
+
 	gitlab := Gitlab{
 		Username: "Antoine",
 	}
@@ -24,7 +33,7 @@ type Sensu struct {
 	Message string
 }
 
-func SensuHandle(w rest.ResponseWriter, req *rest.Request) {
+func PostSensu(w rest.ResponseWriter, req *rest.Request) {
 	sensu := Sensu{
 		ID: "Antoine",
 	}
@@ -34,8 +43,8 @@ func SensuHandle(w rest.ResponseWriter, req *rest.Request) {
 func main() {
 	handler := rest.ResourceHandler{}
 	handler.SetRoutes(
-		&rest.Route{"POST", "/gitlab/commit", GitlabHandle},
-		&rest.Route{"POST", "/sensu/alert", SensuHandle},
+		&rest.Route{"POST", "/gitlab", PostGitlab},
+		&rest.Route{"POST", "/sensu/alert", PostSensu},
 	)
-	http.ListenAndServe(":8080", &handler)
+	http.ListenAndServe(":80", &handler)
 }

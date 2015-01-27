@@ -1,8 +1,9 @@
 package main
 
 import (
-	// "fmt"
 	//	"io/ioutil"
+	"encoding/json"
+	"log"
 	"net/http"
 
 	"github.com/ant0ine/go-json-rest/rest"
@@ -42,6 +43,13 @@ func PostGitlab(w rest.ResponseWriter, req *rest.Request) {
 
 	push := &Push{}
 	err := req.DecodeJsonPayload(&push)
+	p, err := json.Marshal(push)
+	if err != nil {
+		log.Fatalf("Error %s\n", err)
+	}
+
+	log.Printf("Push: %s\n", p)
+
 	if err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
 	}

@@ -3,8 +3,9 @@ package main
 import (
 	//	"io/ioutil"
 	"encoding/json"
+	"fmt"
 	"log"
-	"net/http"
+	//	"net/http"
 
 	"github.com/ant0ine/go-json-rest/rest"
 )
@@ -33,25 +34,17 @@ type Repository struct {
 }
 
 func PostGitlab(w rest.ResponseWriter, req *rest.Request) {
-	/*	content, err := ioutil.ReadAll(req.Body)
-		req.Body.Close()
-		if err != nil {
-			rest.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		fmt.Println(string(content))
-	*/
-
 	push := &Push{}
 	err := req.DecodeJsonPayload(&push)
 	p, err := json.Marshal(push)
 	if err != nil {
 		log.Fatalf("Error %s\n", err)
 	}
+	log.Printf("Post: %s\n", p)
+	ircNotify(push)
+}
 
-	log.Printf("Push: %s\n", p)
-
-	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	w.WriteJson(&push)
+func ircNotify(push *Push) {
+	notice := fmt.Sprintf("NOTICE #easyrtc : GitHub (%s): %v\n", push.Repository.URL, push.Commits)
+	conn.Raw(notice)
 }

@@ -46,7 +46,13 @@ func (c *Committer) String() string {
 }
 
 type Repository struct {
-	URL string `json:"url"`
+	Name         string `json:"name"`
+	URL          string `json:"url"`
+	MasterBranch string `jsona:"master_branch"`
+}
+
+func (r *Repository) String() string {
+	return fmt.Sprintf("%s (%s)", r.Name, r.MasterBranch)
 }
 
 func PostGitlab(w rest.ResponseWriter, req *rest.Request) {

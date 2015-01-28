@@ -10,26 +10,28 @@ import (
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
+type GitHub rest.Request
+
+func (g *GitHub) Notification() string {
+	push := &Push{}
+	err := (*rest.Request)(g).DecodeJsonPayload(&push)
+	pstring, err := json.Marshal(push)
+	if err != nil {
+		return fmt.Sprintf("GitHub Notification Error %s", err)
+	}
+	log.Printf("Post: %s\n", pstring)
+
+	var messages = ""
+	for _, c := range push.Commits {
+		messages = fmt.Sprintf("%s | %s", messages, c.Message)
+	}
+	return fmt.Sprintf("%s | %s [ %s ]", push.Repository.String(), push.Compare, messages)
+}
+
 type Push struct {
 	Compare    string     `json:"compare"`
 	Commits    []Commit   `json:"commits"`
 	Repository Repository `json:"repository"`
-}
-
-func (p *Push) Notification(req *rest.Request) string {
-        push := &Push{}
-        err := req.DecodeJsonPayload(&push)
-        pstring, err := json.Marshal(push)
-        if err != nil {
-                return fmt.Sprintf("GitHub Notification Error %s", err)
-        }
-        log.Printf("Post: %s\n", pstring)
-
-	var messages = ""
-	for _, c := range p.Commits {
-		messages = fmt.Sprintf("%s | %s", messages, c.Message)
-	}
-	return fmt.Sprintf("%s | %s [ %s ]", p.Repository.String(), p.Compare, messages)
 }
 
 type Commit struct {

@@ -7,11 +7,9 @@ import (
 
 	"github.com/ant0ine/go-json-rest/rest"
 	irc "github.com/rmorriso/goirc/client"
-/*
 	"github.com/rmorriso/notbot/github"
 	"github.com/rmorriso/notbot/gitlab"
 	"github.com/rmorriso/notbot/sensu"
-*/
 )
 
 var (
@@ -50,19 +48,36 @@ func main() {
 func Post(w rest.ResponseWriter, req *rest.Request) {
 	path := req.URL.Path
 
-	fmt.Println(path)
+	log.Printf(path)
+	var notice string
+	switch path {
+	case "/github":
+		notifier := github.GitHub(*req)
+		notice = notifier.Notification()
+	case "/gitlab":
+		notifier := gitlab.GitLab(*req)
+		notice = notifier.Notification()
+	case "/sensu":
+		notifier := sensu.Sensu(*req)
+		notice = notifier.Notification()
+	default:
+		notice = fmt.Sprintf("Invalid Notifier: %s", path)
+	}
+	ircNotify(notice)
+
+	fmt.Printf("Path: %s\n", path)
 	return
 
-/*
-	push := &Push{}
-	err := req.DecodeJsonPayload(&push)
-	p, err := json.Marshal(push)
-	if err != nil {
-		log.Fatalf("Error %s\n", err)
-	}
-	log.Printf("Post: %s\n", p)
-	ircNotify(push)
-*/
+	/*
+		push := &Push{}
+		err := req.DecodeJsonPayload(&push)
+		p, err := json.Marshal(push)
+		if err != nil {
+			log.Fatalf("Error %s\n", err)
+		}
+		log.Printf("Post: %s\n", p)
+		ircNotify(push)
+	*/
 }
 
 func ircNotify(notice string) {

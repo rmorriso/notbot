@@ -1,4 +1,4 @@
-package main
+package github
 
 import (
 	//	"io/ioutil"
@@ -16,12 +16,20 @@ type Push struct {
 	Repository Repository `json:"repository"`
 }
 
-func (p *Push) String() string {
+func (p *Push) Notification(req *rest.Request) string {
+        push := &Push{}
+        err := req.DecodeJsonPayload(&push)
+        pstring, err := json.Marshal(push)
+        if err != nil {
+                return fmt.Sprintf("GitHub Notification Error %s", err)
+        }
+        log.Printf("Post: %s\n", pstring)
+
 	var messages = ""
 	for _, c := range p.Commits {
 		messages = fmt.Sprintf("%s | %s", messages, c.Message)
 	}
-	return fmt.Sprintf("%s | %s %s", p.Repository.String(), p.Compare, messages)
+	return fmt.Sprintf("%s | %s [ %s ]", p.Repository.String(), p.Compare, messages)
 }
 
 type Commit struct {
@@ -55,7 +63,8 @@ func (r *Repository) String() string {
 	return fmt.Sprintf("%s (%s)", r.Name, r.MasterBranch)
 }
 
-func PostGitlab(w rest.ResponseWriter, req *rest.Request) {
+/*
+func PostGitHub(w rest.ResponseWriter, req *rest.Request) {
 	push := &Push{}
 	err := req.DecodeJsonPayload(&push)
 	p, err := json.Marshal(push)
@@ -70,3 +79,4 @@ func ircNotify(push *Push) {
 	notice := fmt.Sprintf("NOTICE #easyrtc : GitHub: %s\n", push)
 	conn.Raw(notice)
 }
+*/

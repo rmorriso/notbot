@@ -14,7 +14,7 @@ func (s *Sensu) Notification() string {
 	if err != nil {
 		return fmt.Sprintf("Sensu Notification Error: %s", err)
 	}
-	return "sensu"
+	return fmt.Sprintf("Sensu: %s", alert.Message)
 }
 
 type Alert struct {

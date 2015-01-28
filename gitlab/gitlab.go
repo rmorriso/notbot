@@ -23,7 +23,7 @@ func (g *GitLab) Notification() string {
 	for _, c := range push.Commits {
 		commits = fmt.Sprintf("%s | %s (%s)", commits, c.Message, c.URL)
 	}
-	return fmt.Sprintf("GitLab: %s (%s) | %s [ %s ]", push.Repository.Name, push.Ref, commits)
+	return fmt.Sprintf("GitLab: %s (%s) [ %s ]", push.Repository.Name, push.Ref, commits)
 }
 
 type Push struct {

@@ -29,7 +29,6 @@ func (g *GitLab) Notification() string {
 }
 
 type Push struct {
-	Compare    string     `json:"compare"`
 	Commits    []Commit   `json:"commits"`
 	Repository Repository `json:"repository"`
 }
@@ -37,9 +36,6 @@ type Push struct {
 type Commit struct {
 	ID       string   `json:"id"`
 	Message  string   `json:"message"`
-	Added    []string `json:"added"`
-	Removed  []string `json:"removed"`
-	Modified []string `json:"modified"`
 }
 
 func (c *Commit) String() string {
@@ -58,9 +54,9 @@ func (c *Committer) String() string {
 type Repository struct {
 	Name         string `json:"name"`
 	URL          string `json:"url"`
-	MasterBranch string `json:"master_branch"`
+	Branch string `json:"branch"`
 }
 
 func (r *Repository) String() string {
-	return fmt.Sprintf("%s (%s)", r.Name, r.MasterBranch)
+	return fmt.Sprintf("%s (%s)", r.Name, r.Branch)
 }

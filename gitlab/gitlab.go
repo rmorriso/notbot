@@ -51,7 +51,7 @@ func (c *Commit) String() string {
 
 type Author struct {
 	Name  string `json:"name"`
-	Email string `json:email"`
+	Email string `json:"email"`
 }
 
 func (a *Author) String() string {

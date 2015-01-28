@@ -16,6 +16,14 @@ type Push struct {
 	Repository Repository `json:"repository"`
 }
 
+func (p *Push) String() string {
+	var messages = ""
+	for _, c := range p.Commits {
+		messages = fmt.Sprintf("%s | %s", messages, c.Message)
+	}
+	return fmt.Sprintf("%s | %s %s", p.Repository, p.Compare, messages)
+}
+
 type Commit struct {
 	ID       string   `json:"id"`
 	Message  string   `json:"message"`
@@ -24,9 +32,17 @@ type Commit struct {
 	Modified []string `json:"modified"`
 }
 
+func (c *Commit) String() string {
+	return c.Message
+}
+
 type Committer struct {
 	Name  string `json:"name"`
 	Email string `json:email"`
+}
+
+func (c *Committer) String() string {
+	return c.Name
 }
 
 type Repository struct {
@@ -45,6 +61,6 @@ func PostGitlab(w rest.ResponseWriter, req *rest.Request) {
 }
 
 func ircNotify(push *Push) {
-	notice := fmt.Sprintf("NOTICE #easyrtc : GitHub (%s): %v\n", push.Repository.URL, push.Commits)
+	notice := fmt.Sprintf("NOTICE #easyrtc : GitHub: %s\n", push)
 	conn.Raw(notice)
 }

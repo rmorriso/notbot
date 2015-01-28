@@ -25,7 +25,7 @@ func (g *GitHub) Notification() string {
 	for _, c := range push.Commits {
 		messages = fmt.Sprintf("%s | %s", messages, c.Message)
 	}
-	return fmt.Sprintf("%s | %s [ %s ]", push.Repository.String(), push.Compare, messages)
+	return fmt.Sprintf("GitHub: %s | %s [ %s ]", push.Repository.String(), push.Compare, messages)
 }
 
 type Push struct {

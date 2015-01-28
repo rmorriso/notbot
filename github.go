@@ -48,7 +48,7 @@ func (c *Committer) String() string {
 type Repository struct {
 	Name         string `json:"name"`
 	URL          string `json:"url"`
-	MasterBranch string `jsona:"master_branch"`
+	MasterBranch string `json:"master_branch"`
 }
 
 func (r *Repository) String() string {

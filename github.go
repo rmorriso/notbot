@@ -21,7 +21,7 @@ func (p *Push) String() string {
 	for _, c := range p.Commits {
 		messages = fmt.Sprintf("%s | %s", messages, c.Message)
 	}
-	return fmt.Sprintf("%s | %s %s", p.Repository, p.Compare, messages)
+	return fmt.Sprintf("%s | %s %s", p.Repository.String(), p.Compare, messages)
 }
 
 type Commit struct {

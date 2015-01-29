@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/ant0ine/go-json-rest/rest"
 )
@@ -21,7 +22,7 @@ func (g *GitLab) Notification() string {
 
 	var commits = ""
 	for _, c := range push.Commits {
-		commits = fmt.Sprintf("%s | %s (%s)", commits, c.Message, c.URL)
+		commits = fmt.Sprintf("%s | %s (%s)", commits, strings.TrimSpace(c.Message), c.URL)
 	}
 	return fmt.Sprintf("GitLab: %s (%s) [ %s ]", push.Repository.Name, push.Ref, commits)
 }

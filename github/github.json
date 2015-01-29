@@ -1,0 +1,150 @@
+{
+    "ref": "refs/heads/master",
+    "before": "fb9b93778534fff3e46a4922b629c3839e3fbb98",
+    "after": "0a33d88b2396e648f80cf08e25d7fa4790717bf5",
+    "created": false,
+    "deleted": false,
+    "forced": false,
+    "base_ref": null,
+    "compare": "https://github.com/rmorriso/notbot/compare/fb9b93778534...0a33d88b2396",
+    "commits": [
+        {
+            "id": "0a33d88b2396e648f80cf08e25d7fa4790717bf5",
+            "distinct": true,
+            "message": "emit request body for debugging",
+            "timestamp": "2015-01-27T10:41:11-05:00",
+            "url": "https://github.com/rmorriso/notbot/commit/0a33d88b2396e648f80cf08e25d7fa4790717bf5",
+            "author": {
+                "name": "Rick Morrison",
+                "email": "rick@do106.priologic.com"
+            },
+            "committer": {
+                "name": "Rick Morrison",
+                "email": "rick@do106.priologic.com"
+            },
+            "added": [],
+            "removed": [],
+            "modified": [
+                "main.go"
+            ]
+        }
+    ],
+    "head_commit": {
+        "id": "0a33d88b2396e648f80cf08e25d7fa4790717bf5",
+        "distinct": true,
+        "message": "emit request body for debugging",
+        "timestamp": "2015-01-27T10:41:11-05:00",
+        "url": "https://github.com/rmorriso/notbot/commit/0a33d88b2396e648f80cf08e25d7fa4790717bf5",
+        "author": {
+            "name": "Rick Morrison",
+            "email": "rick@do106.priologic.com"
+        },
+        "committer": {
+            "name": "Rick Morrison",
+            "email": "rick@do106.priologic.com"
+        },
+        "added": [],
+        "removed": [],
+        "modified": [
+            "main.go"
+        ]
+    },
+    "repository": {
+        "id": 29918007,
+        "name": "notbot",
+        "full_name": "rmorriso/notbot",
+        "owner": {
+            "name": "rmorriso",
+            "email": "rmorriso@fedroot.com"
+        },
+        "private": false,
+        "html_url": "https://github.com/rmorriso/notbot",
+        "description": "an IRC notification bot",
+        "fork": false,
+        "url": "https://github.com/rmorriso/notbot",
+        "forks_url": "https://api.github.com/repos/rmorriso/notbot/forks",
+        "keys_url": "https://api.github.com/repos/rmorriso/notbot/keys{/key_id}",
+        "collaborators_url": "https://api.github.com/repos/rmorriso/notbot/collaborators{/collaborator}",
+        "teams_url": "https://api.github.com/repos/rmorriso/notbot/teams",
+        "hooks_url": "https://api.github.com/repos/rmorriso/notbot/hooks",
+        "issue_events_url": "https://api.github.com/repos/rmorriso/notbot/issues/events{/number}",
+        "events_url": "https://api.github.com/repos/rmorriso/notbot/events",
+        "assignees_url": "https://api.github.com/repos/rmorriso/notbot/assignees{/user}",
+        "branches_url": "https://api.github.com/repos/rmorriso/notbot/branches{/branch}",
+        "tags_url": "https://api.github.com/repos/rmorriso/notbot/tags",
+        "blobs_url": "https://api.github.com/repos/rmorriso/notbot/git/blobs{/sha}",
+        "git_tags_url": "https://api.github.com/repos/rmorriso/notbot/git/tags{/sha}",
+        "git_refs_url": "https://api.github.com/repos/rmorriso/notbot/git/refs{/sha}",
+        "trees_url": "https://api.github.com/repos/rmorriso/notbot/git/trees{/sha}",
+        "statuses_url": "https://api.github.com/repos/rmorriso/notbot/statuses/{sha}",
+        "languages_url": "https://api.github.com/repos/rmorriso/notbot/languages",
+        "stargazers_url": "https://api.github.com/repos/rmorriso/notbot/stargazers",
+        "contributors_url": "https://api.github.com/repos/rmorriso/notbot/contributors",
+        "subscribers_url": "https://api.github.com/repos/rmorriso/notbot/subscribers",
+        "subscription_url": "https://api.github.com/repos/rmorriso/notbot/subscription",
+        "commits_url": "https://api.github.com/repos/rmorriso/notbot/commits{/sha}",
+        "git_commits_url": "https://api.github.com/repos/rmorriso/notbot/git/commits{/sha}",
+        "comments_url": "https://api.github.com/repos/rmorriso/notbot/comments{/number}",
+        "issue_comment_url": "https://api.github.com/repos/rmorriso/notbot/issues/comments/{number}",
+        "contents_url": "https://api.github.com/repos/rmorriso/notbot/contents/{+path}",
+        "compare_url": "https://api.github.com/repos/rmorriso/notbot/compare/{base}...{head}",
+        "merges_url": "https://api.github.com/repos/rmorriso/notbot/merges",
+        "archive_url": "https://api.github.com/repos/rmorriso/notbot/{archive_format}{/ref}",
+        "downloads_url": "https://api.github.com/repos/rmorriso/notbot/downloads",
+        "issues_url": "https://api.github.com/repos/rmorriso/notbot/issues{/number}",
+        "pulls_url": "https://api.github.com/repos/rmorriso/notbot/pulls{/number}",
+        "milestones_url": "https://api.github.com/repos/rmorriso/notbot/milestones{/number}",
+        "notifications_url": "https://api.github.com/repos/rmorriso/notbot/notifications{?since,all,participating}",
+        "labels_url": "https://api.github.com/repos/rmorriso/notbot/labels{/name}",
+        "releases_url": "https://api.github.com/repos/rmorriso/notbot/releases{/id}",
+        "created_at": 1422369496,
+        "updated_at": "2015-01-27T15:24:57Z",
+        "pushed_at": 1422373305,
+        "git_url": "git://github.com/rmorriso/notbot.git",
+        "ssh_url": "git@github.com:rmorriso/notbot.git",
+        "clone_url": "https://github.com/rmorriso/notbot.git",
+        "svn_url": "https://github.com/rmorriso/notbot",
+        "homepage": null,
+        "size": 0,
+        "stargazers_count": 0,
+        "watchers_count": 0,
+        "language": "Go",
+        "has_issues": true,
+        "has_downloads": true,
+        "has_wiki": true,
+        "has_pages": false,
+        "forks_count": 0,
+        "mirror_url": null,
+        "open_issues_count": 0,
+        "forks": 0,
+        "open_issues": 0,
+        "watchers": 0,
+        "default_branch": "master",
+        "stargazers": 0,
+        "master_branch": "master"
+    },
+    "pusher": {
+        "name": "rmorriso",
+        "email": "rmorriso@fedroot.com"
+    },
+    "sender": {
+        "login": "rmorriso",
+        "id": 110104,
+        "avatar_url": "https://avatars.githubusercontent.com/u/110104?v=3",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/rmorriso",
+        "html_url": "https://github.com/rmorriso",
+        "followers_url": "https://api.github.com/users/rmorriso/followers",
+        "following_url": "https://api.github.com/users/rmorriso/following{/other_user}",
+        "gists_url": "https://api.github.com/users/rmorriso/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/rmorriso/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/rmorriso/subscriptions",
+        "organizations_url": "https://api.github.com/users/rmorriso/orgs",
+        "repos_url": "https://api.github.com/users/rmorriso/repos",
+        "events_url": "https://api.github.com/users/rmorriso/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/rmorriso/received_events",
+        "type": "User",
+        "site_admin": false
+    }
+}
+

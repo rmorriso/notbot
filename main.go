@@ -1,11 +1,14 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/ant0ine/go-json-rest/rest"
+	"github.com/golang/glog"
 	irc "github.com/rmorriso/goirc/client"
 	"github.com/rmorriso/notbot/github"
 	"github.com/rmorriso/notbot/gitlab"
@@ -13,26 +16,48 @@ import (
 )
 
 var (
-	host    = "irc.priologic.com"
-	channel = "#easyrtc"
-	conn    *irc.Conn
+	configFile string
+	config     *Config
+	conn       *irc.Conn
 )
 
 func init() {
-	config := irc.NewConfig("notbot", "notbot")
-	config.Pass = "k@b00dle"
+	flag.StringVar(&configFile, "f", "/etc/notbot/notbot.yaml", "the notbot server config file")
 
-	conn = irc.Client(config)
+}
+
+func main() {
+	flag.Parse()
+
+	defer glog.Flush()
+
+	// verify files exist
+	if _, err := os.Stat(configFile); os.IsNotExist(err) {
+		glog.Fatalf("notbot config file: %s\n", err)
+	}
+
+	args := flag.Args()
+	glog.V(5).Infof("Args: %v\n", args)
+
+	var err error
+	config, err = Init(configFile)
+	if err != nil {
+		glog.Fatalf("Error in configuration: %s\n", err)
+	}
+
+	ircConfig := irc.NewConfig(config.Nick, config.Name)
+	ircConfig.Pass = config.Password // "k@b00dle"
+
+	conn = irc.Client(ircConfig)
 	conn.EnableStateTracking()
 
 	conn.HandleFunc("connected",
 		func(conn *irc.Conn, line *irc.Line) {
+			channel := fmt.Sprintf("#%s", config.Channel)
 			conn.Join(channel)
 		})
-}
 
-func main() {
-	if err := conn.ConnectTo(host); err != nil {
+	if err := conn.ConnectTo(config.Host); err != nil {
 		log.Fatalf("Connection error: %s\n", err)
 	}
 
@@ -42,7 +67,8 @@ func main() {
 		&rest.Route{"POST", "/gitlab", Post},
 		&rest.Route{"POST", "/sensu", Post},
 	)
-	http.ListenAndServe(":80", &handler)
+	port := fmt.Sprintf(":%s", config.Port)
+	glog.Fatal(http.ListenAndServe(port, &handler))
 }
 
 func Post(w rest.ResponseWriter, req *rest.Request) {
@@ -64,20 +90,7 @@ func Post(w rest.ResponseWriter, req *rest.Request) {
 		notice = fmt.Sprintf("Invalid Notifier: %s", path)
 	}
 	ircNotify(notice)
-
-	fmt.Printf("Path: %s\n", path)
 	return
-
-	/*
-		push := &Push{}
-		err := req.DecodeJsonPayload(&push)
-		p, err := json.Marshal(push)
-		if err != nil {
-			log.Fatalf("Error %s\n", err)
-		}
-		log.Printf("Post: %s\n", p)
-		ircNotify(push)
-	*/
 }
 
 func ircNotify(notice string) {

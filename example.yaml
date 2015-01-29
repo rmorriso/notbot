@@ -1,0 +1,8 @@
+# Notification Bot Server configuration
+---
+irc_host: irc.example.com
+default_channel: example
+irc_nick: notbot
+irc_name: Notification Bot
+password: XXXXXXXX
+http_port: 8080

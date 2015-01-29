@@ -1,0 +1,28 @@
+{
+    "before": "94e70f58ec698a7fa451678923395c371ae2efed",
+    "after": "c60dc244875a88975650d02487e48ed798d0afc5",
+    "ref": "refs/heads/master",
+    "user_id": 21,
+    "user_name": "Rick Morrison",
+    "project_id": 108,
+    "repository": {
+        "name": "ircd-hybrid",
+        "url": "git@git.easyrtc.com:systems-docker/ircd-hybrid.git",
+        "description": "",
+        "homepage": "https://git.easyrtc.com/systems-docker/ircd-hybrid"
+    },
+    "commits": [
+        {
+            "id": "c60dc244875a88975650d02487e48ed798d0afc5",
+            "message": "add comment to Dockerfile\n",
+            "timestamp": "2015-01-28T10:51:14-08:00",
+            "url": "https://git.easyrtc.com/systems-docker/ircd-hybrid/commit/c60dc244875a88975650d02487e48ed798d0afc5",
+            "author": {
+                "name": "Rick Morrison",
+                "email": "rmorriso@fedroot.com"
+            }
+        }
+    ],
+    "total_commits_count": 1
+}
+

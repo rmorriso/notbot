@@ -8,12 +8,15 @@ import (
 )
 
 type Config struct {
-	Port    string `yaml:"http_port"`
-	Host    string `yaml:"irc_host"`
-	Nick string `yaml:"irc_nick"`
-	Name string `yaml:"irc_name"`
+	Host     string `yaml:"irc_host"`
+	Nick     string `yaml:"irc_nick"`
+	Name     string `yaml:"irc_name"`
 	Password string `yaml:"password"`
-	Channel string `yaml:"default_channel"`
+	Channel  string `yaml:"default_channel"`
+	Port     string `yaml:"http_port"`
+	UseTLS   bool   `yaml:"use_tls"`
+	CertFile string `yaml:"ssl_cert_file"`
+	KeyFile  string `yaml:"ssl_key_file"`
 }
 
 // Init unmarshalls Config from YAML configuration in filename

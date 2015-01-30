@@ -46,7 +46,7 @@ func main() {
 	}
 
 	ircConfig := irc.NewConfig(config.Nick, config.Name)
-	ircConfig.Pass = config.Password // "k@b00dle"
+	ircConfig.Pass = config.Password
 
 	conn = irc.Client(ircConfig)
 	conn.EnableStateTracking()
@@ -68,7 +68,11 @@ func main() {
 		&rest.Route{"POST", "/sensu", Post},
 	)
 	port := fmt.Sprintf(":%s", config.Port)
-	glog.Fatal(http.ListenAndServe(port, &handler))
+	if config.UseTLS {
+		glog.Fatal(http.ListenAndServeTLS(port, config.CertFile, config.KeyFile, &handler))
+	} else {
+		glog.Fatal(http.ListenAndServe(port, &handler))
+	}
 }
 
 func Post(w rest.ResponseWriter, req *rest.Request) {

@@ -9,11 +9,19 @@ import (
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type GitLab rest.Request
+type Push struct {
+	Before     string     `json:"before"`
+	After      string     `json:"after"`
+	Ref        string     `json:"ref"`
+	UserID     int        `json:"user_id"`
+	Username   string     `json:"user_name"`
+	ProjectID  int        `json:"project_id"`
+	Commits    []Commit   `json:"commits"`
+	Repository Repository `json:"repository"`
+}
 
-func (g *GitLab) Notification() string {
-	push := &Push{}
-	err := (*rest.Request)(g).DecodeJsonPayload(&push)
+func (push *Push) Notification(req *rest.Request) string {
+	err := req.DecodeJsonPayload(push)
 	pstring, err := json.Marshal(push)
 	if err != nil {
 		return fmt.Sprintf("GitLab Notification Error %s", err)
@@ -25,17 +33,6 @@ func (g *GitLab) Notification() string {
 		commits = fmt.Sprintf("%s | %s (%s)", commits, strings.TrimSpace(c.Message), c.URL)
 	}
 	return fmt.Sprintf("GitLab: %s (%s) [ %s ]", push.Repository.Name, push.Ref, commits)
-}
-
-type Push struct {
-	Before     string     `json:"before"`
-	After      string     `json:"after"`
-	Ref        string     `json:"ref"`
-	UserID     int        `json:"user_id"`
-	Username   string     `json:"user_name"`
-	ProjectID  int        `json:"project_id"`
-	Commits    []Commit   `json:"commits"`
-	Repository Repository `json:"repository"`
 }
 
 type Commit struct {

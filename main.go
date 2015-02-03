@@ -79,21 +79,19 @@ func Post(w rest.ResponseWriter, req *rest.Request) {
 	path := req.URL.Path
 
 	log.Printf(path)
-	var notice string
+	var notifier Notifier
 	switch path {
 	case "/github":
-		notifier := github.GitHub(*req)
-		notice = notifier.Notification()
+		notifier = new(github.Push)
 	case "/gitlab":
-		notifier := gitlab.GitLab(*req)
-		notice = notifier.Notification()
+		notifier = new(gitlab.Push)
 	case "/sensu":
-		notifier := sensu.Sensu(*req)
-		notice = notifier.Notification()
+		notifier = new(sensu.Alert)
 	default:
-		notice = fmt.Sprintf("Invalid Notifier: %s", path)
+		ircNotify(fmt.Sprintf("Invalid Notifier: %s", path))
+		return
 	}
-	ircNotify(notice)
+	ircNotify(notifier.Notification(req))
 	return
 }
 

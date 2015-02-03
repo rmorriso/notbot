@@ -8,11 +8,14 @@ import (
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type GitHub rest.Request
+type Push struct {
+	Compare    string     `json:"compare"`
+	Commits    []Commit   `json:"commits"`
+	Repository Repository `json:"repository"`
+}
 
-func (g *GitHub) Notification() string {
-	push := &Push{}
-	err := (*rest.Request)(g).DecodeJsonPayload(&push)
+func (push *Push) Notification(req *rest.Request) string {
+	err := req.DecodeJsonPayload(push)
 	pstring, err := json.Marshal(push)
 	if err != nil {
 		return fmt.Sprintf("GitHub Notification Error %s", err)
@@ -24,12 +27,6 @@ func (g *GitHub) Notification() string {
 		messages = fmt.Sprintf("%s | %s", messages, c.Message)
 	}
 	return fmt.Sprintf("GitHub: %s | %s [ %s ]", push.Repository.String(), push.Compare, messages)
-}
-
-type Push struct {
-	Compare    string     `json:"compare"`
-	Commits    []Commit   `json:"commits"`
-	Repository Repository `json:"repository"`
 }
 
 type Commit struct {

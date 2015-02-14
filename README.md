@@ -1,6 +1,10 @@
 # notbot
 an IRC notification bot
 
+---
+
+notbot accepts POST requests from clients that wish to send notifications to an IRC channel.
+
 ## Notifiers
 
 Add new sources for IRC notifications by implementing the Notifier interface:
@@ -20,4 +24,8 @@ handler.SetRoutes(
         &rest.Route{"POST", "/sensu", Post},
 )
 ```
+
+## TODO
+
+All the client to specify the target channel in the POST request.
 

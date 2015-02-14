@@ -11,10 +11,10 @@ type Alert struct {
 	Message string
 }
 
-func (alert *Alert) Notification(req *rest.Request) string {
+func (alert *Alert) Notifications(req *rest.Request) []string {
 	err := req.DecodeJsonPayload(alert)
 	if err != nil {
-		return fmt.Sprintf("Sensu Notification Error: %s", err)
+		return []string{fmt.Sprintf("Sensu Notification Error: %s", err)}
 	}
-	return fmt.Sprintf("Sensu: %s", alert.Message)
+	return []string{fmt.Sprintf("Sensu: %s", alert.Message)}
 }

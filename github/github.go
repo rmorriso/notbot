@@ -14,19 +14,19 @@ type Push struct {
 	Repository Repository `json:"repository"`
 }
 
-func (push *Push) Notification(req *rest.Request) string {
+func (push *Push) Notifications(req *rest.Request) []string {
 	err := req.DecodeJsonPayload(push)
 	pstring, err := json.Marshal(push)
 	if err != nil {
-		return fmt.Sprintf("GitHub Notification Error %s", err)
+		return []string{fmt.Sprintf("GitHub Notification Error %s", err)}
 	}
 	log.Printf("Post: %s\n", pstring)
 
-	var messages = ""
+	var notifications = []string{}
 	for _, c := range push.Commits {
-		messages = fmt.Sprintf("%s | %s", messages, c.Message)
+		notifications = append(notifications, fmt.Sprintf("GitHub: %s (%s) | %s", push.Repository.String(), push.Compare, c.Message))
 	}
-	return fmt.Sprintf("GitHub: %s | %s [ %s ]", push.Repository.String(), push.Compare, messages)
+	return notifications
 }
 
 type Commit struct {
@@ -59,21 +59,3 @@ type Repository struct {
 func (r *Repository) String() string {
 	return fmt.Sprintf("%s (%s)", r.Name, r.MasterBranch)
 }
-
-/*
-func PostGitHub(w rest.ResponseWriter, req *rest.Request) {
-	push := &Push{}
-	err := req.DecodeJsonPayload(&push)
-	p, err := json.Marshal(push)
-	if err != nil {
-		log.Fatalf("Error %s\n", err)
-	}
-	log.Printf("Post: %s\n", p)
-	ircNotify(push)
-}
-
-func ircNotify(push *Push) {
-	notice := fmt.Sprintf("NOTICE #easyrtc : GitHub: %s\n", push)
-	conn.Raw(notice)
-}
-*/

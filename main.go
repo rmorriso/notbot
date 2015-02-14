@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/golang/glog"
@@ -91,7 +92,10 @@ func Post(w rest.ResponseWriter, req *rest.Request) {
 		ircNotify(fmt.Sprintf("Invalid Notifier: %s", path))
 		return
 	}
-	ircNotify(notifier.Notification(req))
+	for _, notification := range notifier.Notifications(req) {
+		ircNotify(notification)
+		time.Sleep(2)
+	}
 	return
 }
 

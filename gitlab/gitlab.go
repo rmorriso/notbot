@@ -29,7 +29,7 @@ func (push *Push) Notifications(req *rest.Request) []string {
 	log.Printf("Post: %s\n", pstring)
 	notifications := []string{}
 	for _, c := range push.Commits {
-		notifications = append(notifications, fmt.Sprintf("GitLab: %s (%s) [%s | %s]", push.Repository.Name, push.Ref, strings.TrimSpace(c.Message), c.URL))
+		notifications = append(notifications, fmt.Sprintf("GitLab: %s (%s) [ %s | %s ]", push.Repository.Name, push.Ref, strings.TrimSpace(c.Message), c.URL))
 	}
 	return notifications
 }

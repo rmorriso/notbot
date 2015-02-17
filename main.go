@@ -100,5 +100,5 @@ func Post(w rest.ResponseWriter, req *rest.Request) {
 }
 
 func ircNotify(notice string) {
-	conn.Raw(fmt.Sprintf("NOTICE #easyrtc : %s\n", notice))
+	conn.Raw(fmt.Sprintf("NOTICE #%s : %s\n", config.Channel, notice))
 }
